@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet"><style>body{margin:0;background:#ffffff;font-family:'Jost',sans-serif;color:#2b2b2b}a{color:#8a6a2f;text-decoration:none}a:hover{color:#5c4519}html{scroll-behavior:smooth}</style></helmet>
+<div style="min-height:100vh;background:#ffffff">
+<header style="position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid #e8e8e8;display:flex;align-items:center;justify-content:space-between;padding:14px 5vw;gap:16px">
+<div style="font-family:'Cinzel',serif;font-weight:700;font-size:20px;line-height:1;letter-spacing:.04em;color:#2b2b2b">CHEESE<br>PUFF <span style="color:#b08a3e">KING</span></div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end"><a href="#stock" style="border:1.5px solid #2b2b2b;color:#2b2b2b;padding:10.5px 20px;border-radius:999px;font-weight:600;font-size:15px" style-hover="background:#2b2b2b;color:#fff">Stock our puffs</a><a href="#stores" style="background:#8a6a2f;color:#fff;padding:12px 22px;border-radius:999px;font-weight:600;font-size:15px" style-hover="background:#5c4519;color:#fff">Where to find us</a></div>
+</header>
+
+<section style="display:flex;flex-wrap:wrap;max-width:1280px;margin:0 auto;padding:24px 5vw 8px;gap:32px;align-items:center">
+<div style="flex:1 1 320px;display:flex;flex-direction:column;gap:22px">
+<div style="font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#8a6a2f;font-weight:600">Where to find us</div>
+<h1 style="font-family:'Cinzel',serif;font-weight:700;font-size:clamp(32px,4.5vw,54px);line-height:1.04;margin:0">Find Cheese Puff King <span style="color:#8a6a2f">near you.</span></h1>
+<p style="font-size:19px;line-height:1.5;margin:0;max-width:34em;text-wrap:pretty">Available at {{ total }} supermarkets, cafés and caterers across Perth. Choose a place, then open it in Google Maps or order delivery.</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap">
+<a href="#stores" style="background:#2b2b2b;color:#fff;padding:16px 28px;border-radius:999px;font-weight:600;font-size:17px" style-hover="background:#8a6a2f;color:#fff">See where to find us</a>
+<button onClick="{{ pickDelivery }}" style="background:transparent;border:2px solid #2b2b2b;color:#2b2b2b;padding:14px 26px;border-radius:999px;font:600 17px 'Jost',sans-serif;cursor:pointer" style-hover="background:#2b2b2b;color:#fff">Order delivery</button>
+</div>
+</div>
+<div style="flex:1.7 1 440px;min-width:0;display:flex;flex-direction:column;gap:10px"><div style="position:relative;width:100%;aspect-ratio:700/370;border-radius:16px;overflow:hidden;background:#fff;border:1px solid #e8e8e8">
+<img src="uploads/pasted-1792434829042-0.png" alt="Weekend BBQ, Game Night, Gourmet Appetizers" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:opacity .8s;opacity:{{ op1 }}"></img>
+<img src="uploads/pasted-1792434838627-0.png" alt="Catering, Kids Lunchbox, Coffee Break" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:opacity .8s;opacity:{{ op2 }}"></img>
+</div><div style="display:flex;justify-content:center;gap:8px">
+<button onClick="{{ go0 }}" aria-label="Slide 1" style="width:10px;height:10px;padding:0;border-radius:50%;border:none;cursor:pointer;background:{{ d1 }}"></button>
+<button onClick="{{ go1 }}" aria-label="Slide 2" style="width:10px;height:10px;padding:0;border-radius:50%;border:none;cursor:pointer;background:{{ d2 }}"></button>
+</div></div>
+</section>
+
+<section id="stores" style="max-width:1280px;margin:0 auto;padding:20px 5vw 40px;scroll-margin-top:70px">
+<div style="position:sticky;top:64px;z-index:10;background:#ffffff;padding:12px 0;display:flex;flex-wrap:wrap;gap:10px;align-items:center;border-bottom:1px solid #e8e8e8;margin-bottom:28px">
+<input value="{{ query }}" onInput="{{ setQuery }}" placeholder="Search store or suburb…" style="flex:1 1 220px;min-width:0;padding:13px 18px;border-radius:999px;border:1.5px solid #d6d6d6;background:#fff;font:400 16px 'Jost',sans-serif;outline:none"></input>
+<sc-for list="{{ cats }}" as="c" hint-placeholder-count="4">
+<button onClick="{{ c.pick }}" style="padding:12px 20px;border-radius:999px;border:1.5px solid #d6d6d6;font:500 15px 'Jost',sans-serif;cursor:pointer;background:{{ c.bg }};color:{{ c.fg }}">{{ c.label }}</button>
+</sc-for>
+<button onClick="{{ toggleDelivery }}" style="padding:12px 20px;border-radius:999px;border:1.5px solid #d6d6d6;font:500 15px 'Jost',sans-serif;cursor:pointer;background:{{ delBg }};color:{{ delFg }}">🛵 Delivery only</button>
+</div>
+
+<sc-for list="{{ groups }}" as="g" hint-placeholder-count="3">
+<div style="margin-bottom:32px">
+<h2 style="font-family:'Cinzel',serif;font-weight:700;font-size:clamp(26px,3.4vw,38px);color:#2b2b2b;margin:0 0 14px;letter-spacing:.04em">{{ g.title }}</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px">
+<sc-for list="{{ g.items }}" as="s" hint-placeholder-count="4">
+<div style="background:#fff;border:1px solid #e8e8e8;border-radius:16px;overflow:hidden;display:flex;flex-direction:column" style-hover="box-shadow:0 10px 26px rgba(90,60,20,.16);transform:translateY(-2px)">
+<div style="height:220px;background:#fff;border-bottom:1px solid #eeeeee;display:flex;align-items:center;justify-content:center;padding:8px;box-sizing:border-box"><sc-if value="{{ s.hasLogo }}" hint-placeholder-val="{{ false }}"><img src="{{ s.logo }}" alt="{{ s.name }}" style="width:100%;height:100%;object-fit:contain"></img></sc-if></div>
+<div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:12px">
+<div><div style="font-weight:600;font-size:17px;line-height:1.2">{{ s.name }}</div><div style="color:#777777;font-size:14px;margin-top:3px">📍 {{ s.suburb }}</div></div>
+<div style="display:flex;gap:8px">
+<a href="{{ s.maps }}" target="_blank" rel="noopener" style="flex:1;text-align:center;background:#8a6a2f;color:#fff;padding:10px 6px;border-radius:9px;font-weight:600;font-size:14px" style-hover="background:#5c4519;color:#fff">Directions</a>
+<a href="{{ s.delivery }}" target="_blank" rel="noopener" style="display:{{ s.badge }};flex:1;justify-content:center;border:1.5px solid #2b2b2b;color:#2b2b2b;padding:8.5px 6px;border-radius:9px;font-weight:600;font-size:14px" style-hover="background:#2b2b2b;color:#fff">🛵 Delivery</a>
+</div></div></div>
+</sc-for>
+</div></div>
+</sc-for>
+<div style="display:{{ emptyShow }};text-align:center;padding:48px;color:#777777;font-size:18px">No stores match. Try another suburb or clear filters.</div>
+</section>
+
+<section id="stock" style="background:#f3f3f3;border-top:1px solid #e8e8e8;padding:48px 5vw;scroll-margin-top:70px"><div style="max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center">
+<div style="max-width:560px"><div style="font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#8a6a2f;font-weight:600;margin-bottom:10px">For stores, cafés &amp; caterers</div><h2 style="font-family:'Cinzel',serif;font-weight:700;font-size:clamp(26px,3.4vw,38px);margin:0 0 10px">Want Cheese Puff King in your store?</h2><p style="margin:0;font-size:18px;line-height:1.5">Become a stockist and let customers in your area find us at your door. Send us a message and we'll get back to you.</p></div>
+<div style="display:flex;gap:12px;flex-wrap:wrap"><a href="mailto:info@cheesepuffking.com.au?subject=Stockist%20enquiry" style="background:#8a6a2f;color:#fff;padding:16px 28px;border-radius:999px;font-weight:600;font-size:17px" style-hover="background:#5c4519;color:#fff">Become a stockist</a><a href="tel:+61461302014" style="border:2px solid #2b2b2b;color:#2b2b2b;padding:14px 26px;border-radius:999px;font-weight:600;font-size:17px" style-hover="background:#2b2b2b;color:#fff">Call +61 461 302 014</a></div>
+</div></section>
+<footer style="background:#f3f3f3;color:#2b2b2b;padding:32px 5vw;display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between;align-items:center">
+<div style="max-width:420px"><div style="font-family:'Cinzel',serif;font-size:24px;margin-bottom:8px">Stay in the loop</div><div style="line-height:1.5;opacity:.85">Join the mailing list to hear when new stores stock Cheese Puff King.</div></div>
+<form onSubmit="{{ subscribe }}" style="display:flex;gap:8px;flex-wrap:wrap"><input type="email" required placeholder="Email" style="padding:14px 18px;border-radius:999px;border:1.5px solid #d6d6d6;font:400 16px 'Jost',sans-serif;min-width:220px"></input><button style="background:#b08a3e;color:#2b2b2b;border:none;padding:14px 26px;border-radius:999px;font:600 16px 'Jost',sans-serif;cursor:pointer">{{ subLabel }}</button></form>
+<div style="width:100%;font-size:14px;opacity:.7">Perth/Australia · info@cheesepuffking.com.au · +61 461 302 014</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { slide: 0, cat: 'All', query: '', del: false, sub: false };
+  stores = [
+    ['IGA Nollamara','Nollamara','Grocery Stores'],['Naturally Fresh IGA Sackville','Perth','Grocery Stores'],['IGA Kalamunda','Kalamunda','Grocery Stores'],['IGA Tucker Fresh Piara Waters','Piara Waters','Grocery Stores'],['Old Bridge Cellars Como','Como','Grocery Stores'],['Old Bridge Cellars North Fremantle','North Fremantle','Grocery Stores'],['Free Foods','Atwell','Grocery Stores'],['Foodies IGA The Downs','Wembley Downs','Grocery Stores'],['Foodies Market IGA Alkimos','Alkimos','Grocery Stores'],["Farmer Jack's Butler",'Butler','Grocery Stores'],["Farmer Jack's Currambine",'Currambine','Grocery Stores'],["Farmer Jack's Landsdale",'Landsdale','Grocery Stores'],["Farmer Jack's Gwelup",'Gwelup','Grocery Stores'],["Farmer Jack's Woodlands",'Woodlands','Grocery Stores'],
+    ['Mug Acai Malaga Market','Malaga','Cafés'],['Canteen 1905','Perth','Cafés'],
+    ['Celtic Bistro','Perth','Catering'],['Uai Mate','Perth','Catering']
+  ];
+  // Add delivery URLs here by store name; stores not listed show no delivery button.
+  logos = {"Farmer Jack's":"uploads/pasted-1792434577323-0.png","IGA Nollamara":"uploads/pasted-1792434513578-0.png","Naturally Fresh IGA Sackville":"uploads/pasted-1792434523783-0.png","IGA Kalamunda":"uploads/pasted-1792434528069-0.png","IGA Tucker Fresh Piara Waters":"uploads/pasted-1792434535225-0.png","Old Bridge Cellars Como":"uploads/pasted-1792434544496-0.png","Old Bridge Cellars North Fremantle":"uploads/pasted-1792434544496-0.png","Free Foods":"uploads/pasted-1792434552046-0.png","Foodies IGA The Downs":"uploads/pasted-1792434566790-0.png","Foodies Market IGA Alkimos":"uploads/pasted-1792434572302-0.png","Mug Acai Malaga Market":"uploads/pasted-1792434582492-0.png","Canteen 1905":"uploads/pasted-1792434589531-0.png","Celtic Bistro":"uploads/pasted-1792434594463-0.png","Uai Mate":"uploads/pasted-1792434601387-0.png"};
+  deliveryLinks = {
+    "Mug Acai Malaga Market": '#', 'Canteen 1905': '#', 'Uai Mate': '#', 'Celtic Bistro': '#'
+  };
+  componentDidMount() { this.iv = setInterval(() => this.setState(s => ({ slide: 1 - s.slide })), 4500); }
+  componentWillUnmount() { clearInterval(this.iv); }
+  renderVals() {
+    const { cat, query, del, sub } = this.state;
+    const q = query.trim().toLowerCase();
+    const all = this.stores.map(([name, suburb, c]) => {
+      const d = this.deliveryLinks[name];
+      return { name, suburb, c, 
+        maps: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(name + ' ' + suburb + ' WA Australia'),
+        hasLogo: !!(this.logos[name] || this.logos[name.split(' ')[0]+' '+name.split(' ')[1]]), logo: this.logos[name] || this.logos[name.split(' ')[0]+' '+name.split(' ')[1]] || '', delivery: d || '#', badge: d ? 'flex' : 'none' };
+    });
+    const f = all.filter(s => (cat === 'All' || s.c === cat) && (!del || s.badge === 'flex') && (!q || (s.name + ' ' + s.suburb).toLowerCase().includes(q)));
+    const groups = ['Grocery Stores', 'Cafés', 'Catering'].map(t => ({ title: t, items: f.filter(s => s.c === t) })).filter(g => g.items.length);
+    const cats = ['All', 'Grocery Stores', 'Cafés', 'Catering'].map(c => ({ label: c, bg: cat === c ? '#2b2b2b' : '#fff', fg: cat === c ? '#fff' : '#2b2b2b', pick: () => this.setState({ cat: c }) }));
+    const sl = this.state.slide;
+    return {
+      op1: sl === 0 ? 1 : 0, op2: sl === 1 ? 1 : 0, d1: sl === 0 ? '#8a6a2f' : '#cfcfcf', d2: sl === 1 ? '#8a6a2f' : '#cfcfcf',
+      go0: () => this.setState({ slide: 0 }), go1: () => this.setState({ slide: 1 }),
+      total: all.length, groups, cats, query,
+      emptyShow: f.length ? 'none' : 'block',
+      delBg: del ? '#2b2b2b' : '#fff', delFg: del ? '#fff' : '#2b2b2b',
+      setQuery: e => this.setState({ query: e.target.value }),
+      toggleDelivery: () => this.setState({ del: !del }),
+      pickDelivery: () => { this.setState({ del: true, cat: 'All' }); document.getElementById('stores').scrollTop; window.location.hash = 'stores'; },
+      subscribe: e => { e.preventDefault(); this.setState({ sub: true }); },
+      subLabel: sub ? 'Thanks! ✓' : 'Subscribe'
+    };
+  }
+}
+</script>
+</body>
+</html>

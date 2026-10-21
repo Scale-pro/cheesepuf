@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#fff;font-family:'Manrope',sans-serif;color:#1f1f1f}a{color:#8a6a2f;text-decoration:none}a:hover{color:#5c4519}html{scroll-behavior:smooth}@keyframes cpk-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}</style></helmet>
+<div style="min-height:100vh;background:#fff;overflow-x:hidden">
+<header style="position:sticky;top:0;z-index:30;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border-bottom:1px solid #ececec;display:flex;align-items:center;justify-content:space-between;padding:12px 5vw;gap:16px">
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:20px;letter-spacing:-.01em;color:#1f1f1f">Cheese Puff <span style="color:#8a6a2f">King</span></div>
+<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
+<a href="#stock" style="color:#1f1f1f;padding:10px 14px;font-weight:600;font-size:15px" style-hover="color:#8a6a2f">Stock our puffs</a>
+<a href="#stores" style="background:#8a6a2f;color:#fff;padding:11px 20px;border-radius:999px;font-weight:700;font-size:15px" style-hover="background:#5c4519;color:#fff">Find a store</a>
+</div></header>
+
+<section style="max-width:1280px;margin:0 auto;padding:48px 5vw 32px;display:flex;flex-wrap:wrap;gap:40px;align-items:center">
+<div style="flex:1 1 360px;display:flex;flex-direction:column;gap:24px;min-width:0">
+<div style="align-self:flex-start;display:flex;align-items:center;gap:8px;background:#f5f5f4;border:1px solid #ececec;padding:7px 14px;border-radius:999px;font-size:14px;font-weight:600"><span style="width:8px;height:8px;border-radius:50%;background:#3aa76d"></span>{{ total }} places across Perth stock us</div>
+<h1 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(40px,6vw,76px);line-height:.98;letter-spacing:-.03em;margin:0">Find Cheese Puff King <span style="color:#8a6a2f">near you.</span></h1>
+<p style="font-size:19px;line-height:1.55;margin:0;max-width:26em;font-size:21px;color:#4a4a4a;text-wrap:pretty">Golden and crispy on the outside, soft and cheesy on the inside, with delicious gourmet fillings.</p>
+<div style="display:flex;gap:8px;background:#fff;border:1.5px solid #d9d9d9;border-radius:999px;padding:6px;max-width:520px;box-shadow:0 6px 24px rgba(0,0,0,.06)">
+<input value="{{ query }}" onInput="{{ setQuery }}" placeholder="Search your suburb or store…" style="flex:1;min-width:0;border:none;outline:none;padding:0 16px;font:500 16px 'Manrope',sans-serif;background:transparent"></input>
+<button onClick="{{ goStores }}" style="background:#8a6a2f;color:#fff;border:none;padding:14px 24px;border-radius:999px;font:700 16px 'Manrope',sans-serif;cursor:pointer" style-hover="background:#5c4519">Find stores</button>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+<span style="font-size:14px;color:#777">Popular:</span>
+<sc-for list="{{ quick }}" as="q" hint-placeholder-count="4"><button onClick="{{ q.pick }}" style="border:1px solid #e0e0e0;background:#fff;padding:7px 14px;border-radius:999px;font:600 14px 'Manrope',sans-serif;cursor:pointer;color:#1f1f1f" style-hover="background:#f5f5f4">{{ q.label }}</button></sc-for>
+<button onClick="{{ pickDelivery }}" style="border:1px solid #1f1f1f;background:#fff;padding:7px 14px;border-radius:999px;font:700 14px 'Manrope',sans-serif;cursor:pointer;color:#1f1f1f" style-hover="background:#1f1f1f;color:#fff">🛵 Delivery available</button>
+</div>
+</div>
+<div style="flex:1 1 340px;min-width:0;display:flex;justify-content:center"><div style="position:relative;width:100%;max-width:460px;aspect-ratio:4/5;border-radius:28px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.18)"><img src="uploads/WhatsApp%20Image%202026-10-19%20at%2016.47.59.jpeg" alt="Stacked cheese puffs cut open to show gourmet fillings" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 70%"></img></div></div>
+</section>
+
+<section style="border-top:1px solid #ececec;border-bottom:1px solid #ececec;background:#fafafa;padding:22px 0;overflow:hidden">
+<div style="text-align:center;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#8a8a8a;margin-bottom:14px">Stocked by</div>
+<div style="display:flex;width:max-content;gap:56px;animation:cpk-marquee 40s linear infinite;align-items:center">
+<sc-for list="{{ marquee }}" as="m" hint-placeholder-count="6"><img src="{{ m }}" alt="" style="height:56px;width:auto;max-width:150px;object-fit:contain;flex:none"></img></sc-for>
+</div></section>
+
+<section id="stores" style="max-width:1280px;margin:0 auto;padding:56px 5vw 24px;scroll-margin-top:60px">
+<div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:flex-end;margin-bottom:20px">
+<div><h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(30px,4vw,48px);letter-spacing:-.02em;margin:0 0 6px">Where to find us</h2><div style="color:#666;font-size:16px">{{ resultsText }}</div></div>
+</div>
+<div style="position:sticky;top:61px;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);padding:10px 0;display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-bottom:1px solid #ececec;margin-bottom:28px">
+<div style="flex:1 1 240px;display:flex;align-items:center;gap:8px;border:1.5px solid #d9d9d9;border-radius:999px;padding:0 16px;background:#fff"><span style="color:#8a8a8a">⌕</span><input value="{{ query }}" onInput="{{ setQuery }}" placeholder="Search store or suburb…" style="flex:1;min-width:0;border:none;outline:none;padding:12px 0;font:500 15px 'Manrope',sans-serif;background:transparent"></input></div>
+<sc-for list="{{ cats }}" as="c" hint-placeholder-count="4"><button onClick="{{ c.pick }}" style="padding:11px 18px;border-radius:999px;border:1.5px solid {{ c.bd }};font:600 14px 'Manrope',sans-serif;cursor:pointer;background:{{ c.bg }};color:{{ c.fg }}">{{ c.label }} <span style="opacity:.6">{{ c.n }}</span></button></sc-for>
+<button onClick="{{ toggleDelivery }}" style="padding:11px 18px;border-radius:999px;border:1.5px solid {{ delBd }};font:600 14px 'Manrope',sans-serif;cursor:pointer;background:{{ delBg }};color:{{ delFg }}">🛵 Delivery</button>
+</div>
+
+<sc-for list="{{ groups }}" as="g" hint-placeholder-count="3">
+<div style="margin-bottom:44px">
+<div style="display:flex;align-items:baseline;gap:10px;margin-bottom:16px"><h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:26px;letter-spacing:-.01em;margin:0">{{ g.title }}</h3><span style="color:#8a8a8a;font-weight:600">{{ g.count }}</span></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px">
+<sc-for list="{{ g.items }}" as="s" hint-placeholder-count="4">
+<div style="background:#fff;border:1px solid #e8e8e8;border-radius:22px;overflow:hidden;display:flex;flex-direction:column;transition:all .25s" style-hover="box-shadow:0 18px 40px rgba(0,0,0,.1);transform:translateY(-4px);border-color:#d6d6d6">
+<div style="position:relative;height:200px;background:#fff;display:flex;align-items:center;justify-content:center;padding:10px;box-sizing:border-box;border-bottom:1px solid #f0f0f0">
+<sc-if value="{{ s.hasLogo }}" hint-placeholder-val="{{ false }}"><img src="{{ s.logo }}" alt="{{ s.name }}" style="width:100%;height:100%;object-fit:contain"></img></sc-if>
+<span style="display:{{ s.badge }};position:absolute;top:12px;left:12px;background:#1f1f1f;color:#fff;font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px">🛵 Delivery</span>
+</div>
+<div style="padding:16px 18px 18px;display:flex;flex-direction:column;gap:14px;flex:1">
+<div><div style="font-weight:700;font-size:18px;line-height:1.2">{{ s.name }}</div><div style="color:#777;font-size:14px;margin-top:4px">📍 {{ s.suburb }}</div></div>
+<div style="display:flex;gap:8px;margin-top:auto">
+<a href="{{ s.maps }}" target="_blank" rel="noopener" style="flex:1;text-align:center;background:#8a6a2f;color:#fff;padding:12px 8px;border-radius:12px;font-weight:700;font-size:15px" style-hover="background:#5c4519;color:#fff">Get directions ↗</a>
+<a href="{{ s.delivery }}" target="_blank" rel="noopener" style="display:{{ s.badge }};align-items:center;justify-content:center;border:1.5px solid #1f1f1f;color:#1f1f1f;padding:0 14px;border-radius:12px;font-weight:700;font-size:15px" style-hover="background:#1f1f1f;color:#fff">Order</a>
+</div></div></div>
+</sc-for>
+</div></div>
+</sc-for>
+<div style="display:{{ emptyShow }};text-align:center;padding:56px 20px;background:#fafafa;border-radius:22px;margin-bottom:40px">
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px;margin-bottom:8px">No stores found</div>
+<div style="color:#666;margin-bottom:20px">Try another suburb, or ask us to bring Cheese Puff King to your local.</div>
+<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button onClick="{{ clearAll }}" style="border:1.5px solid #1f1f1f;background:#fff;padding:12px 22px;border-radius:999px;font:700 15px 'Manrope',sans-serif;cursor:pointer">Clear filters</button><a href="#stock" style="background:#8a6a2f;color:#fff;padding:14px 22px;border-radius:999px;font-weight:700;font-size:15px">Request a stockist</a></div></div>
+</section>
+
+<section id="stock" style="max-width:1280px;margin:40px auto 0;padding:0 5vw 64px;scroll-margin-top:60px">
+<div style="background:#f5f5f4;border-radius:32px;padding:clamp(28px,5vw,64px);display:flex;flex-wrap:wrap;gap:40px;align-items:center">
+<div style="flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:18px">
+<div style="font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#8a6a2f">For stores, cafés &amp; caterers</div>
+<h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(30px,4.2vw,52px);line-height:1.02;letter-spacing:-.02em;margin:0">Want Cheese Puff King on your shelves?</h2>
+<p style="margin:0;font-size:18px;line-height:1.55;color:#4a4a4a">Join our stockists and get listed on this page, so customers nearby find you.</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:6px"><a href="mailto:info@cheesepuffking.com.au?subject=Stockist%20enquiry" style="background:#8a6a2f;color:#fff;padding:16px 28px;border-radius:999px;font-weight:700;font-size:17px" style-hover="background:#5c4519;color:#fff">Become a stockist</a><a href="tel:+61461302014" style="border:2px solid #1f1f1f;color:#1f1f1f;padding:14px 26px;border-radius:999px;font-weight:700;font-size:17px" style-hover="background:#1f1f1f;color:#fff">Call us</a></div>
+</div>
+<div style="flex:1 1 300px;display:flex;flex-direction:column;gap:12px;min-width:0">
+<sc-for list="{{ steps }}" as="st" hint-placeholder-count="3"><div style="display:flex;gap:16px;align-items:center;background:#fff;border-radius:18px;padding:18px 20px"><div style="flex:none;width:40px;height:40px;border-radius:50%;background:#1f1f1f;color:#fff;display:flex;align-items:center;justify-content:center;font:800 17px 'Bricolage Grotesque',sans-serif">{{ st.n }}</div><div><div style="font-weight:700;font-size:17px">{{ st.t }}</div><div style="color:#666;font-size:15px;margin-top:2px">{{ st.d }}</div></div></div></sc-for>
+</div></div></section>
+
+<footer style="border-top:1px solid #ececec;padding:36px 5vw;display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between;align-items:center">
+<div style="max-width:380px"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:22px;margin-bottom:6px">Stay in the loop</div><div style="line-height:1.5;color:#666">Hear first when new stores stock Cheese Puff King.</div></div>
+<form onSubmit="{{ subscribe }}" style="display:flex;gap:8px;flex-wrap:wrap"><input type="email" required placeholder="Your email" style="padding:14px 18px;border-radius:999px;border:1.5px solid #d6d6d6;font:500 16px 'Manrope',sans-serif;min-width:220px"></input><button style="background:#1f1f1f;color:#fff;border:none;padding:14px 26px;border-radius:999px;font:700 16px 'Manrope',sans-serif;cursor:pointer">{{ subLabel }}</button></form>
+<div style="width:100%;font-size:14px;color:#8a8a8a">Perth, Australia · info@cheesepuffking.com.au · +61 461 302 014</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { slide: 0, cat: 'All', query: '', del: false, sub: false };
+  stores = [
+    ['IGA Nollamara','Nollamara','Grocery Stores'],['Naturally Fresh IGA Sackville','Perth','Grocery Stores'],['IGA Kalamunda','Kalamunda','Grocery Stores'],['IGA Tucker Fresh Piara Waters','Piara Waters','Grocery Stores'],['Old Bridge Cellars Como','Como','Grocery Stores'],['Old Bridge Cellars North Fremantle','North Fremantle','Grocery Stores'],['Free Foods','Atwell','Grocery Stores'],['Foodies IGA The Downs','Wembley Downs','Grocery Stores'],['Foodies Market IGA Alkimos','Alkimos','Grocery Stores'],["Farmer Jack's Butler",'Butler','Grocery Stores'],["Farmer Jack's Currambine",'Currambine','Grocery Stores'],["Farmer Jack's Landsdale",'Landsdale','Grocery Stores'],["Farmer Jack's Gwelup",'Gwelup','Grocery Stores'],["Farmer Jack's Woodlands",'Woodlands','Grocery Stores'],
+    ['Mug Acai Malaga Market','Malaga','Cafés'],['Canteen 1905','Perth','Cafés'],
+    ['Celtic Bistro','Perth','Catering'],['Uai Mate','Perth','Catering']
+  ];
+  logos = {"Farmer Jack's":"uploads/pasted-1792434577323-0.png","IGA Nollamara":"uploads/pasted-1792434513578-0.png","Naturally Fresh IGA Sackville":"uploads/pasted-1792434523783-0.png","IGA Kalamunda":"uploads/pasted-1792434528069-0.png","IGA Tucker Fresh Piara Waters":"uploads/pasted-1792434535225-0.png","Old Bridge Cellars Como":"uploads/pasted-1792434544496-0.png","Old Bridge Cellars North Fremantle":"uploads/pasted-1792434544496-0.png","Free Foods":"uploads/pasted-1792434552046-0.png","Foodies IGA The Downs":"uploads/pasted-1792434566790-0.png","Foodies Market IGA Alkimos":"uploads/pasted-1792434572302-0.png","Mug Acai Malaga Market":"uploads/pasted-1792434582492-0.png","Canteen 1905":"uploads/pasted-1792434589531-0.png","Celtic Bistro":"uploads/pasted-1792434594463-0.png","Uai Mate":"uploads/pasted-1792434601387-0.png"};
+  // Delivery URLs by store name; unlisted stores show no delivery button.
+  deliveryLinks = { "Mug Acai Malaga Market": '#', 'Canteen 1905': '#', 'Uai Mate': '#', 'Celtic Bistro': '#' };
+  
+  logoFor(n) { return this.logos[n] || this.logos[n.split(' ')[0] + ' ' + n.split(' ')[1]] || ''; }
+  scrollStores() { const el = document.getElementById('stores'); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 56, behavior: 'smooth' }); }
+  renderVals() {
+    const { cat, query, del, sub, slide } = this.state;
+    const q = query.trim().toLowerCase();
+    const all = this.stores.map(([name, suburb, c]) => {
+      const d = this.deliveryLinks[name]; const logo = this.logoFor(name);
+      return { name, suburb, c, hasLogo: !!logo, logo,
+        maps: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(name + ' ' + suburb + ' WA Australia'),
+        delivery: d || '#', badge: d ? 'flex' : 'none' };
+    });
+    const match = s => (!q || (s.name + ' ' + s.suburb).toLowerCase().includes(q)) && (!del || s.badge === 'flex');
+    const f = all.filter(s => (cat === 'All' || s.c === cat) && match(s));
+    const titles = ['Grocery Stores', 'Cafés', 'Catering'];
+    const groups = titles.map(t => { const items = f.filter(s => s.c === t); return { title: t, items, count: items.length }; }).filter(g => g.items.length);
+    const cats = ['All', ...titles].map(c => ({ label: c, n: all.filter(s => (c === 'All' || s.c === c) && match(s)).length,
+      bg: cat === c ? '#1f1f1f' : '#fff', fg: cat === c ? '#fff' : '#1f1f1f', bd: cat === c ? '#1f1f1f' : '#d9d9d9', pick: () => this.setState({ cat: c }) }));
+    const quick = ['Perth', 'Butler', 'Malaga', 'Kalamunda'].map(l => ({ label: l, pick: () => { this.setState({ query: l, cat: 'All', del: false }); this.scrollStores(); } }));
+    const uniq = [...new Set(all.map(s => s.logo).filter(Boolean))];
+    const sep = !q && cat === 'All' && !del ? '' : ' matching your filters';
+    return {
+      total: all.length, quick, cats, groups, query,
+      marquee: [...uniq, ...uniq],
+      resultsText: f.length + (f.length === 1 ? ' place' : ' places') + sep,
+      emptyShow: f.length ? 'none' : 'block',
+      op1: slide === 0 ? 1 : 0, op2: slide === 1 ? 1 : 0,
+      d1: slide === 0 ? '#8a6a2f' : '#d0d0d0', d2: slide === 1 ? '#8a6a2f' : '#d0d0d0',
+      w1: slide === 0 ? '28px' : '8px', w2: slide === 1 ? '28px' : '8px',
+      go0: () => this.setState({ slide: 0 }), go1: () => this.setState({ slide: 1 }),
+      delBg: del ? '#1f1f1f' : '#fff', delFg: del ? '#fff' : '#1f1f1f', delBd: del ? '#1f1f1f' : '#d9d9d9',
+      steps: [
+        { n: '1', t: 'Send us a message', d: 'Tell us about your store, café or catering business.' },
+        { n: '2', t: 'We supply your puffs', d: 'Frozen, easy to heat and serve.' },
+        { n: '3', t: 'Customers find you here', d: 'You get a card with directions and delivery.' }
+      ],
+      setQuery: e => this.setState({ query: e.target.value }),
+      goStores: () => this.scrollStores(),
+      toggleDelivery: () => this.setState({ del: !del }),
+      pickDelivery: () => { this.setState({ del: true, cat: 'All', query: '' }); this.scrollStores(); },
+      clearAll: () => this.setState({ del: false, cat: 'All', query: '' }),
+      subscribe: e => { e.preventDefault(); this.setState({ sub: true }); },
+      subLabel: sub ? 'Thanks! ✓' : 'Subscribe'
+    };
+  }
+}
+</script>
+</body>
+</html>
